@@ -1,14 +1,26 @@
 from django.shortcuts import render
 
+from .models import Survey
+
 
 def index(request):
+    surveys = Survey.objects.all()
 
-    return render(request, 'surveys/surveys.html')
+    context = {
+        'surveys': surveys
+    }
+
+    return render(request, 'surveys/survey.html', context)
 
 
-def survey(request):
+def survey(request, survey_id):
+    survey = get_object_or_404(Survey, pk=survey_id)
 
-    return render(request, 'surveys/survey.html')
+    context = {
+        'survey': survey
+    }
+
+    return render(request, 'surveys/survey.html', context)
 
 
 def surveys(request):
